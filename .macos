@@ -16,13 +16,10 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
-# Kent's Customizations                                                       #
+# My Customizations                                                       #
 ###############################################################################
 
 echo "Hello $(whoami)! Let's get you set up."
-
-echo "mkdir -p $(HOME)/code"
-mkdir -p "$(HOME)/code"
 
 echo "installing homebrew"
 # install homebrew https://brew.sh
@@ -36,7 +33,7 @@ echo "brew installing stuff"
 # ffmpeg: eventually I'll need this for something
 # tree: really handy for listing out directories in text
 # bat: A cat(1) clone with syntax highlighting and Git integration.
-brew install git hub libdvdcss ripgrep imagemagick bash-completion watchman tree bat
+brew install git
 # yarn: without node because we'll get it from installing n later
 brew install yarn --without-node
 
@@ -46,31 +43,29 @@ curl -L https://git.io/n-install | bash
 echo "node --version: $(node --version)"
 echo "npm --version: $(npm --version)"
 
-echo "installing a few global npm packages"
-npm install --global serve diff-so-fancy fkill-cli npm-quick-run semantic-release-cli
+# echo "installing a few global npm packages"
+# npm install --global serve diff-so-fancy fkill-cli npm-quick-run semantic-release-cli
 
 echo "installing apps with brew cask"
-brew cask install alfred google-chrome firefox brave-browser bettertouchtool divvy \
-bartender google-drive-file-stream itsycal visual-studio-code 1password dash \
-screenflow marshallofsound-google-play-music-player virtualbox skype rocket \
-sublime-text vlc discord obs handbrake zoomus betterzip avibrazil-rdm sip \
-qlcolorcode qlmarkdown qlstephen quicklook-json webpquicklook \
-suspicious-package qlvideo
+brew cask install alfred google-chrome firefox visual-studio-code rocket sublime-text vlc sourcetree spotify whatsapp telegram slack 
 
 echo "Generating an RSA token for GitHub"
 mkdir -p ~/.ssh
-ssh-keygen -t rsa -b 4096 -C "kent@doddsfamily.us"
+ssh-keygen -t rsa -b 4096 -C "itays@chegg.com"
 echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
 eval "$(ssh-agent -s)"
 echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
 
-echo "cloning dotfiles"
-git clone git@github.com:kentcdodds/dotfiles.git "${HOME}/dotfiles"
-ln -s "${HOME}/dotfiles/.bash_profile" "${HOME}/.bash_profile"
-ln -s "${HOME}/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
-ln -s "${HOME}/dotfiles/.my_bin" "${HOME}/.my_bin"
-ln -s "${HOME}/dotfiles/.vimrc" "${HOME}/.vimrc"
-ln -s "${HOME}/dotfiles/.vimrc-parts" "${HOME}/.vimrc-parts"
+# echo "cloning dotfiles"
+# git clone git@github.com:kentcdodds/dotfiles.git "${HOME}/dotfiles"
+# ln -s "${HOME}/dotfiles/.bash_profile" "${HOME}/.bash_profile"
+# ln -s "${HOME}/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
+# ln -s "${HOME}/dotfiles/.my_bin" "${HOME}/.my_bin"
+# ln -s "${HOME}/dotfiles/.vimrc" "${HOME}/.vimrc"
+# ln -s "${HOME}/dotfiles/.vimrc-parts" "${HOME}/.vimrc-parts"
+
+echo "installing oh-my-zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 echo "making system modifications:"
 
